@@ -1,4 +1,5 @@
 import init_terrain
+import pygame
 
 
 def launch_simulation():
@@ -6,4 +7,5 @@ def launch_simulation():
 
 
 if __name__ == '__main__':
+    pygame.init()
     launch_simulation()
