@@ -41,7 +41,6 @@ class User(threading.Thread):
         return False
 
     def run(self):
-        self.sem.
         finish = False
         while not finish:
             self.sem.acquire()
