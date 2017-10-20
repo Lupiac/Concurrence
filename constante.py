@@ -11,5 +11,5 @@ OBSTACLE = 2
 EXIT = 3
 
 obstacle = [
-    rectangle.Rectangle(point.Point(492, 108), 20, 20)
+    rectangle.Rectangle(point.Point(450, 50), 55, 30)
 ]

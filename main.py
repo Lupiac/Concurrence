@@ -14,9 +14,12 @@ def launch_simulation():
     finish = False
     while not finish:
         finish = user.moove()
-        time.sleep(0.0005)
+        time.sleep(0.005)
     pygame.quit()
 
+
+def parse_arg():
+    None
 
 if __name__ == '__main__':
     launch_simulation()
