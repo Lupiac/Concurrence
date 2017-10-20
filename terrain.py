@@ -8,8 +8,8 @@ class Terrain:
         self.add_exit()
 
     def add_obstacle(self, obstacle):
-        for i in range(0, obstacle.height):
-            for j in range(0, obstacle.width):
+        for i in range(0, obstacle.width):
+            for j in range(0, obstacle.height):
                 self.terrain[obstacle.point.X + i][obstacle.point.Y + j] = constante.OBSTACLE
 
     def add_obstacles(self):
