@@ -15,7 +15,6 @@ def launch_simulation(draw_is_enable, nb_user):
         drawer = Drawer(constante.obstacle)
     terrain = Terrain()
     user_manager = UserManager(nb_user, terrain, drawer, draw_is_enable)
-    time.sleep(10)
     psutil.cpu_percent(interval=None)
     user_manager.start_users()
     start_time = time.time()
@@ -24,8 +23,8 @@ def launch_simulation(draw_is_enable, nb_user):
         pygame.quit()
     cpu_usage = psutil.cpu_percent(interval=None)
     elapsed_time = time.time() - start_time
-    print cpu_usage
-    print elapsed_time
+    print(cpu_usage)
+    print(elapsed_time)
     return cpu_usage, elapsed_time
 
 
@@ -62,18 +61,18 @@ def main(argv):
     T = arg[1]
     M = arg[2]
     INTERFACE = arg[3]
-    print P, T, M, INTERFACE
+    print(P, T, M, INTERFACE)
     # launch_simulation()
 
 if __name__ == '__main__':
     main(sys.argv[1:])
 
-    # launch_simulation(True, 300)
+    # launch_simulation(True, 512)
     cpu_usage_average = 0
     time_elapse_average = 0
     for i in range(0, 5):
-        metrics = launch_simulation(False, 256)
+        metrics = launch_simulation(False, 512)
         cpu_usage_average += metrics[0]
         time_elapse_average += metrics[1]
-    print "cpu usage : " + str(cpu_usage_average / 5)
-    print "time elapse : " + str(time_elapse_average / 5)
+    print("cpu usage : " + str(cpu_usage_average / 5))
+    print("time elapse : " + str(time_elapse_average / 5))

@@ -17,8 +17,8 @@ class Drawer:
     EXIT_COLOR = GREEN
 
     # Multiplicateur
-    X_MULT = 3
-    Y_MULT = 7
+    X_MULT = 1
+    Y_MULT = 1
 
     # CONSTRUCTEUR
     def __init__(self, obstacles):

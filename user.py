@@ -3,12 +3,15 @@ import time
 from point import Point
 
 
+# def init_locks():
+#     for i in xrange(0, 512):
+#         for j in xrange(0, 128):
+#              locks[i][j] = threading.Semaphore()
 class User(threading.Thread):
-
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
-    ORANGE = (255,165,0)
-    PINK = (255,105,180)
+    ORANGE = (255, 165, 0)
+    PINK = (255, 105, 180)
 
     # CONSTANT
     NORTH = Point(0, -1)
@@ -18,6 +21,10 @@ class User(threading.Thread):
 
     # STATIC VAR
     sem = threading.Semaphore()
+    locks = None
+
+
+
 
     def __init__(self, position, terrain, drawer, draw_is_enable, color):
         super(User, self).__init__()
@@ -28,9 +35,8 @@ class User(threading.Thread):
         self.color = color
 
     def moove(self):
-        print("coucou")
         for mouvement in self.POSSIBLE_MOUVEMENT:
-            position_to_test = Point(self.position.X + mouvement.X,self.position.Y + mouvement.Y)
+            position_to_test = Point(self.position.X + mouvement.X, self.position.Y + mouvement.Y)
             if self.terrain.can_moove_to(position_to_test):
                 finish = self.terrain.moove_to(self.position, position_to_test)
                 if finish is not True:
@@ -46,5 +52,6 @@ class User(threading.Thread):
             self.sem.acquire()
             finish = self.moove()
             self.sem.release()
-            # if self.draw_is_enable:
-            #     time.sleep(0.005)
+            if self.draw_is_enable:
+                time.sleep(0.005)
+        exit()
