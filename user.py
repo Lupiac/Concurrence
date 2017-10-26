@@ -43,7 +43,6 @@ class User(threading.Thread):
     def run(self):
         finish = False
         while not finish:
-            Py_BEGIN_ALLOW_THREADS;
             self.sem.acquire()
             finish = self.moove()
             self.sem.release()
