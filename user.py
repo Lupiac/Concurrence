@@ -3,10 +3,6 @@ import time
 from point import Point
 
 
-# def init_locks():
-#     for i in xrange(0, 512):
-#         for j in xrange(0, 128):
-#              locks[i][j] = threading.Semaphore()
 class User(threading.Thread):
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
@@ -20,19 +16,16 @@ class User(threading.Thread):
     POSSIBLE_MOUVEMENT = [NORTH_EAST, NORTH, EAST]
 
     # STATIC VAR
-    sem = threading.Semaphore()
     locks = None
 
-
-
-
-    def __init__(self, position, terrain, drawer, draw_is_enable, color):
+    def __init__(self, position, terrain, drawer, draw_is_enable, color, sem):
         super(User, self).__init__()
         self.position = position
         self.terrain = terrain
         self.drawer = drawer
         self.draw_is_enable = draw_is_enable
         self.color = color
+        self.sem = sem
 
     def moove(self):
         for mouvement in self.POSSIBLE_MOUVEMENT:

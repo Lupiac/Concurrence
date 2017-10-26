@@ -17,8 +17,8 @@ class Drawer:
     EXIT_COLOR = GREEN
 
     # Multiplicateur
-    X_MULT = 1
-    Y_MULT = 1
+    X_MULT = 2
+    Y_MULT = 5
 
     # CONSTRUCTEUR
     def __init__(self, obstacles):
@@ -32,11 +32,12 @@ class Drawer:
         pygame.display.flip()
 
     def draw_obstacle(self):
-        for i, val in enumerate(self.obstacles):
+        for obstacle in self.obstacles:
             pygame.draw.rect(
                 self.screen,
                 self.BLACK,
-                [val.point.X * self.X_MULT, val.point.Y * self.Y_MULT, val.width * self.X_MULT, val.height * self.Y_MULT]
+                [obstacle[0] * self.X_MULT, obstacle[1] * self.Y_MULT, obstacle[2] * self.X_MULT,
+                 obstacle[3] * self.Y_MULT]
             )
 
     def draw_user(self, old_position, new_position, color):

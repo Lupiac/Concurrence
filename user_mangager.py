@@ -1,7 +1,7 @@
 import random
 from user import User
 from point import Point
-
+from threading import Semaphore
 
 class UserManager:
 
@@ -11,11 +11,13 @@ class UserManager:
         self.terrain = terrain
         self.nb_user = nb_user
         self.users = [None] * nb_user
-        random.seed()
+        random.seed(187852)
+
+        sem = Semaphore()
         for i in range(0, nb_user):
             point = self.get_valid_position()
             self.users[i] = User(point, terrain, drawer, draw_is_enable,
-                                 self.POSSIBLE_COLOR[random.randint(0, 3)])
+                                 self.POSSIBLE_COLOR[random.randint(0, 3)], sem)
             if draw_is_enable:
                 drawer.add_user(self.users[i].position, self.users[i].color)
 
