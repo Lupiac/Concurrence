@@ -13,7 +13,8 @@ class User(threading.Thread):
     NORTH = Point(0, -1)
     EAST = Point(-1, 0)
     NORTH_EAST = Point(-1, -1)
-    POSSIBLE_MOUVEMENT = [NORTH_EAST, NORTH, EAST]
+    SOUTH_EAST = Point(1, -1)
+    POSSIBLE_MOUVEMENT = [NORTH_EAST, NORTH, EAST, SOUTH_EAST]
 
     # STATIC VAR
     locks = None
@@ -42,6 +43,7 @@ class User(threading.Thread):
     def run(self):
         finish = False
         while not finish:
+            Py_BEGIN_ALLOW_THREADS;
             self.sem.acquire()
             finish = self.moove()
             self.sem.release()

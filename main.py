@@ -15,6 +15,7 @@ def launch_simulation(draw_is_enable, nb_user):
         from drawer import Drawer
         drawer = Drawer(terrain.obstacles)
     user_manager = UserManager(nb_user, terrain, drawer, draw_is_enable)
+
     psutil.cpu_percent(interval=None)
     user_manager.start_users()
     start_time = time.time()
@@ -66,7 +67,6 @@ def launch_metrics(nb_person):
 
 
 if __name__ == '__main__':
-
     arg = parse_arg(sys.argv[1:])
     nb_person = arg[0]
     simulation_type = arg[1]
