@@ -53,15 +53,6 @@ def parse_arg(argv):
             i = True
     return p, t, m, i
 
-def main(argv):
-    arg = parse_arg(argv)
-
-    P = arg[0]
-    T = arg[1]
-    M = arg[2]
-    INTERFACE = arg[3]
-    print(P, T, M, INTERFACE)
-    # launch_simulation()
 
 def launch_metrics(nb_person):
     cpu_usage_average = 0

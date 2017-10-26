@@ -28,7 +28,6 @@ class Terrain:
                 obstacle = (randint(2, 510), randint(2, 126), randint(10, 30), randint(10, 30))
             self.add_obstacle(obstacle)
             self.obstacles[i] = obstacle
-            print(i)
 
     def add_exit(self):
         for i in range(0, 2):
@@ -61,7 +60,6 @@ class Terrain:
         return False
 
     def verify_if_near_to_border(self, obstacle):
-        # print(obstacle)
         if (obstacle[0] <= 1 or obstacle[0] >= 510) or (obstacle[1] <= 1 or obstacle[1] >= 126)\
                 or obstacle[0] + obstacle[2] >= 510 or obstacle[1] + obstacle[3] >= 126:
             return True
@@ -86,9 +84,7 @@ class Terrain:
         return True
 
     def verify_bottom_side(self, obstacle):
-        print(obstacle)
         for i in range(0, obstacle[2]):
-            print(i)
             if self.terrain[obstacle[0] + i][obstacle[1] + obstacle[3]] != constante.EMPTY:
                 return False
         return True
