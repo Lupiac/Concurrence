@@ -1,90 +1,27 @@
 import constante
-from random import seed
-from random import randint
 
 
 class Terrain:
-    cpt = 1
 
-    def __init__(self):
-        self.terrain = [[0 for x in range(constante.HEIGHT)] for y in range(constante.WIDTH)]
-        self.obstacles = [None]*15
-        self.add_obstacles()
-        self.add_exit()
+    def __init__(self, terrain, locks, obstacles):
+        self.terrain = terrain
+        self.locks = locks
+        self.obstacles = obstacles
 
-    # Generation et Ajout d'obstacle
-    def add_obstacle(self, obstacle):
-
-        for i in range(0, obstacle[2]):
-            for j in range(0, obstacle[3]):
-                self.terrain[obstacle[0] + i][obstacle[1] + j] = constante.OBSTACLE
-
-
-    def add_obstacles(self):
-        seed(5256)
-        for i in range(0, 15):
-            obstacle = (randint(2, 510), randint(2, 126), randint(10, 30), randint(10, 30))
-            while obstacle is not None and not self.obstacle_is_valid(obstacle):
-                obstacle = (randint(2, 510), randint(2, 126), randint(10, 30), randint(10, 30))
-            self.add_obstacle(obstacle)
-            self.obstacles[i] = obstacle
-
-    def add_exit(self):
-        for i in range(0, 2):
-            for j in range(0, 2):
-                self.terrain[i][j] = constante.EXIT
+    def add_users(self, users):
+        for i in range(len(users)):
+            position = users[i].position
+            self.terrain[position.Y][position.X] = constante.PEOPLE
+            self.locks[position.X][position.Y].acquire()
 
     def can_moove_to(self, position):
-        return 512 > position.X >= 0 \
-               and 512 > position.Y >= 0 \
-               and self.terrain[position.X][position.Y] in [constante.EXIT, constante.EMPTY]
+        return constante.WIDTH > position.X >= 0 \
+               and constante.HEIGHT > position.Y >= 0 \
+               and self.terrain[position.Y][position.X] in [constante.EXIT, constante.EMPTY]
 
     def moove_to(self, old_position, new_position):
-        self.terrain[old_position.X][old_position.Y] = constante.EMPTY
-        if self.terrain[new_position.X][new_position.Y] == constante.EXIT:
+        self.terrain[old_position.Y][old_position.X] = constante.EMPTY
+        if self.terrain[new_position.Y][new_position.X] == constante.EXIT:
             return True
-        self.terrain[new_position.X][new_position.Y] = constante.PEOPLE
+        self.terrain[new_position.Y][new_position.X] = constante.PEOPLE
         return False
-
-    def obstacle_is_valid(self, obstacle):
-        return (not self.verify_if_near_to_border(obstacle)) and not self.verify_if_on_other_obstacle(obstacle)\
-               and self.verify_bottom_side(obstacle) and self.verify_top_side(obstacle) and \
-               self.verify_left_side(obstacle) and self.verify_right_side(obstacle)
-
-
-    def verify_if_on_other_obstacle(self, obstacle):
-        for i in range(0, obstacle[2]):
-            for j in range(0, obstacle[3]):
-                if self.terrain[obstacle[0] + i][obstacle[1] + j] != constante.EMPTY:
-                    return True
-        return False
-
-    def verify_if_near_to_border(self, obstacle):
-        if (obstacle[0] <= 1 or obstacle[0] >= 510) or (obstacle[1] <= 1 or obstacle[1] >= 126)\
-                or obstacle[0] + obstacle[2] >= 510 or obstacle[1] + obstacle[3] >= 126:
-            return True
-        return False
-
-    def verify_left_side(self, obstacle):
-        for i in range(0, obstacle[3]):
-            if self.terrain[obstacle[0]][obstacle[1] + i] != constante.EMPTY:
-                return False
-        return True
-
-    def verify_right_side(self, obstacle):
-        for i in range(0, obstacle[3]):
-            if self.terrain[obstacle[0] + obstacle[2]][obstacle[1] + i] != constante.EMPTY:
-                return False
-        return True
-
-    def verify_top_side(self, obstacle):
-        for i in range(0, obstacle[2]):
-            if self.terrain[obstacle[0] + i][obstacle[1]] != constante.EMPTY:
-                return False
-        return True
-
-    def verify_bottom_side(self, obstacle):
-        for i in range(0, obstacle[2]):
-            if self.terrain[obstacle[0] + i][obstacle[1] + obstacle[3]] != constante.EMPTY:
-                return False
-        return True

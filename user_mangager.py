@@ -13,11 +13,10 @@ class UserManager:
         self.users = [None] * nb_user
         random.seed(187852)
 
-        sem = Semaphore()
         for i in range(0, nb_user):
             point = self.get_valid_position()
-            self.users[i] = User(point, terrain, drawer, draw_is_enable,
-                                 self.POSSIBLE_COLOR[random.randint(0, 3)], sem)
+
+            self.users[i] = User(point, terrain, drawer, draw_is_enable, self.POSSIBLE_COLOR[random.randint(0, 3)])
             if draw_is_enable:
                 drawer.add_user(self.users[i].position, self.users[i].color)
 

@@ -1,20 +1,21 @@
 import getopt
 
-import constante
 import time
 import psutil
-from terrain import Terrain
+from terrainBuilder import TerrainBuilder
 from user_mangager import UserManager
 import sys
 
+
 def launch_simulation(draw_is_enable, nb_user):
     drawer = None
-    terrain = Terrain()
+    terrain = TerrainBuilder().build()
     if draw_is_enable:
         import pygame
         from drawer import Drawer
         drawer = Drawer(terrain.obstacles)
     user_manager = UserManager(nb_user, terrain, drawer, draw_is_enable)
+    terrain.add_users(user_manager.users)
 
     psutil.cpu_percent(interval=None)
     user_manager.start_users()
