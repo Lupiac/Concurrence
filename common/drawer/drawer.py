@@ -25,8 +25,8 @@ class Drawer:
     ELEMENT_COLOR = [WHITE, None, OBSTACLE_COLOR, EXIT_COLOR]
 
     # Multiplicateur
-    X_MULT = 3
-    Y_MULT = 5
+    X_MULT = 1
+    Y_MULT = 1
 
     def __init__(self, cases):
         pygame.init()
