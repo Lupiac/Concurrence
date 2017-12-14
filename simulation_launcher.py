@@ -37,11 +37,11 @@ class SimulationLauncher:
         time_avg_clock = 0
         for i in range(5):
             self.scenario = self.init_scenario()
-            start_time = time.time()
             start_time_clock = time.process_time()
+            start_time = time.time()
             self.scenario.launch()
-            elapsed_time = time.time() - start_time
             elapsed_time_clock = time.process_time() - start_time_clock
+            elapsed_time = time.time() - start_time
             time_avg += elapsed_time
             time_avg_clock += elapsed_time_clock
         time_avg = time_avg / 5

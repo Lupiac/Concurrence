@@ -14,8 +14,8 @@ class MapBuilder:
         self.init_obstacle()
 
     def init_lock_case(self):
-        half_height = constante.HEIGHT
-        half_width = constante.WIDTH
+        half_height = int(constante.HEIGHT / 2)
+        half_width = int(constante.WIDTH / 2)
         for w in range(constante.WIDTH):
             self.cases[w][half_height - 1] = LockCase(constante.EMPTY)
         for h in range(constante.HEIGHT):
